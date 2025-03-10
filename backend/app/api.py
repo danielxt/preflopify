@@ -2,8 +2,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import poker
 import random
+import rangeRFI
+
 
 app = FastAPI()
+
+RFI_POSITION_TO_RANGE = {
+    "utg" : poker.hand.Range("A9s+ AQo+ 66+ KQs+ QJs+ JTs+ T9s 98s A5s")
+}
 
 origins = [
     "http://localhost:5173",
@@ -24,8 +30,16 @@ app.add_middleware(
 async def read_root() -> dict:
     return {"message": "Welcome to your todo list."}
 
-@app.get("/getRandomHand")
-async def read_root() -> dict:
-    allhands = poker.hand.Range("XX").to_ascii().split()
-    print(random.choice(allhands))
-    return {"value": random.choice(allhands)}
+@app.get("/dealHand")
+async def deal_hand() -> dict:
+    chosenHand = random.choice(poker.hand.Range("XX").to_ascii().split())
+  
+    chosenPosition = random.choice(list(RFI_POSITION_TO_RANGE.keys()))
+    options = ["fold", "raise"]
+    correctOption = ""
+    if chosenHand in RFI_POSITION_TO_RANGE[chosenPosition].to_ascii().split():
+        correctOption = "raise"
+    else:
+        correctOption = "fold"
+    
+    return {"hand": chosenHand, "position": chosenPosition, "options" : options, "correctOption" : correctOption}
