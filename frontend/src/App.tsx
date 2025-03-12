@@ -27,6 +27,12 @@ function App() {
     function handleWrong() {
       setWrongOptionColor("red")
     }
+
+    function reset() {
+      setCorrectOptionColor("primary")
+      setWrongOptionColor("primary")
+      fetchHand()
+    }
     
     const fetchHand = async () => {
       const response = await fetch("http://localhost:8000/dealHand")
@@ -68,16 +74,19 @@ function App() {
   return (
     <>
   
-      <p>{hand}</p>
-      <p>{position}</p>
-     
-      <p>{correctOption}</p>
-      <Stack spacing={2} direction="column">
-        {optionsList}
-      </Stack>
+      
       <div>
         {htmlParser.parse(rangeTable)}
       </div>
+
+      <b>Dealt {hand} in {position}</b>
+
+      <Stack spacing={1} direction="column">
+        {optionsList}
+        <Button variant="contained" onClick={() => reset()}>Reset</Button>
+      </Stack>
+
+      
 
     </>
   )

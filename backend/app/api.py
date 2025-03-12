@@ -46,6 +46,7 @@ async def deal_hand() -> dict:
         correctOption = "raise"
     else:
         correctOption = "fold"
+    print(RFI_POSITION_TO_RANGE[chosenPosition].to_ascii().split())
     
     return {"hand": chosenHand, "position": chosenPosition, "options" : options, "correctOption" : correctOption, 
             "rangeTable": RFI_POSITION_TO_RANGE[chosenPosition].to_html()}
