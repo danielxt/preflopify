@@ -113,7 +113,10 @@ function App() {
         {htmlParser.parse(rangeTable)}
       </Stack>
       <Typography>
-        {scenario}
+        6 max 100BB eff.
+      </Typography>
+      <Typography>
+        Scenario: <b>{scenario}</b>
       </Typography>
       <Typography variant="h5"><b>Dealt {hand} in {position}</b></Typography>
 
