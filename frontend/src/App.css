@@ -15,6 +15,18 @@ td {
   color:black;
 }
 
+td.red {
+  background: red;
+}
+
+td.green {
+  background:green;
+}
+
+td.blue {
+  background:blue;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

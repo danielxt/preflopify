@@ -13,12 +13,15 @@ function App() {
     const [options, setOptions] = useState([])
     const [correctOption, setCorrectOption] = useState("")
     const htmlParser = Parser();
-    const [rangeTable, setRangeTable] = useState("")
+    const [blankRangeTable, setBlankRangeTable] = useState("")
+    const [coloredRangeTable, setColoredRangeTable] = useState("")
 
     const [wrongOptionColor, setWrongOptionColor] = useState("primary")
     const [correctOptionColor, setCorrectOptionColor] = useState("primary")
 
     const [madeChoice, setMadeChoice] = useState(false)
+
+    
 
 
     function handleCorrect() {
@@ -53,11 +56,20 @@ function App() {
       setPosition(result.position)
       setOptions(result.options)
       setCorrectOption(result.correctOption)
-      setRangeTable(result.rangeTable)
+      setBlankRangeTable(result.blankRangeTable)
+      setColoredRangeTable(result.coloredRangeTable)
     }
     useEffect(() => {
       fetchHand()
     }, [])
+
+    var rangeTable = ""
+    if (madeChoice) {
+      rangeTable = coloredRangeTable
+    }
+    else {
+      rangeTable = blankRangeTable
+    }
 
     const optionsList = options.map(
     (option) => 

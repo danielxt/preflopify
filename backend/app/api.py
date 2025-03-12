@@ -3,17 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 import poker
 import random
 import rangeRFI
-from rangeRFI import utg, utg1, cutoff, button, smallBlind
+from rangeRFI import ALL_RFI_ACTIONS
+from tableColorer import colorer
 
 app = FastAPI()
-
-RFI_POSITION_TO_RANGE = {
-    "UTG" : utg,
-    "UTG+1" : utg1,
-    "Cutoff" : cutoff,
-    "Button" : button,
-    # "Small Blind" : smallBlind
-}
 
 origins = [
     "http://localhost:5173",
@@ -30,23 +23,26 @@ app.add_middleware(
 )
 
 
-@app.get("/msg", tags=["msg"])
-async def read_root() -> dict:
-    return {"message": "Welcome to your todo list."}
-
 
 @app.get("/dealHand")
 async def deal_hand() -> dict:
     chosenHand = random.choice(poker.hand.Range("XX").to_ascii().split())
 
-    chosenPosition = random.choice(list(RFI_POSITION_TO_RANGE.keys()))
-    options = ["fold", "raise"]
-    correctOption = ""
-    if chosenHand in RFI_POSITION_TO_RANGE[chosenPosition].to_ascii().split():
-        correctOption = "raise"
-    else:
-        correctOption = "fold"
-    print(RFI_POSITION_TO_RANGE[chosenPosition].to_ascii().split())
+    actionClass = random.choice(ALL_RFI_ACTIONS)
+   
+    chosenPosition = actionClass.position
+    options = list(actionClass.optionToRange.keys())
     
-    return {"hand": chosenHand, "position": chosenPosition, "options" : options, "correctOption" : correctOption, 
-            "rangeTable": RFI_POSITION_TO_RANGE[chosenPosition].to_html()}
+    correctOption = actionClass.getCorrectAction(chosenHand)
+    
+    blankRangeTable = colorer([], [], [], chosenHand)
+    
+    coloredRangeTable = actionClass.getColoredTable(chosenHand)
+
+
+    return {"hand": chosenHand, 
+            "position": chosenPosition, 
+            "options" : options, 
+            "correctOption" : correctOption, 
+            "blankRangeTable": blankRangeTable,
+            "coloredRangeTable" : coloredRangeTable}
