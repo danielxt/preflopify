@@ -7,7 +7,7 @@ import { Typography } from "@mui/material";
 import { Container } from "@mui/material";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import Grid from '@mui/material/Grid2';
-
+import Box from "@mui/material";
 import SimpleBackdrop from './Backdrop.tsx'
 import InfoIcon from '@mui/icons-material/Info';
 
@@ -90,6 +90,7 @@ function App() {
 
     const infoText = (
       <Grid container>
+         
        <Typography variant="h4">
         <b>What is Preflopify?</b>
       </Typography>
@@ -116,6 +117,7 @@ function App() {
       <Stack sx={{bgcolor:'secondary'}} padding={1} borderRadius="10px" margin={1}>
         {htmlParser.parse(rangeTable)}
       </Stack>
+
       <Typography>
         6 max 100BB eff.
       </Typography>
@@ -123,11 +125,13 @@ function App() {
         Scenario: <b>{scenario} </b> 
       </Typography>
       <Typography variant="h5"><b>Dealt {hand} in {position}</b></Typography>
-
-      <Stack spacing={1} direction="column" sx={{bgcolor:'dark'}} borderRadius="10px" padding={2}>
+ 
+      <Stack spacing={1} direction="row" sx={{bgcolor:'dark', width:"100%"}} borderRadius="10px" padding={2} justifyContent={'center'}>
         {optionsList}
         <Button variant="outlined" onClick={() => reset()}><RestartAltIcon/></Button>
       </Stack>
+      
+    
 
     </Container>
      

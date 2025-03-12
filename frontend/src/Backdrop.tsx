@@ -17,14 +17,14 @@ export default function SimpleBackdrop({text, buttonText, icon}) {
 
   return (
     <div>
-      <Button variant="text" onClick={handleOpen} startIcon={icon}> {buttonText}</Button>
+      <Button variant="outlined" onClick={handleOpen} startIcon={icon}> {buttonText}</Button>
 
       <Backdrop
         sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
         open={open}
         onClick={handleClose}
       >
-        <Grid container bgcolor={"white"} sx={{color:"black"}} borderRadius={"5px"} padding={1}>
+        <Grid container bgcolor={"white"} sx={{color:"black", width:"500px"}} borderRadius={"5px"} padding={1}>
           {text}
         </Grid>
       </Backdrop>
