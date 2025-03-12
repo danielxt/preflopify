@@ -8,8 +8,13 @@ import { Container } from "@mui/material";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import Grid from '@mui/material/Grid2';
 import Box from "@mui/material";
+import clickSound from './assets/click.mp3'
 import SimpleBackdrop from './Backdrop.tsx'
 import InfoIcon from '@mui/icons-material/Info';
+import useSound from 'use-sound';
+import successSound from './assets/success.mp3'
+import failSound from './assets/fail.mp3'
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 
 function App() {
@@ -26,9 +31,18 @@ function App() {
     const [correctOptionColor, setCorrectOptionColor] = useState("primary")
 
     const [madeChoice, setMadeChoice] = useState(false)
+    const [success] = useSound(successSound);
+    const [fail] = useSound(failSound)
+    const [click] = useSound(clickSound)
+    function correctAnswer() {
+      success()
+      handleAnswer();
+    }
 
-    
-
+    function failAnswer() {
+      fail()
+      handleAnswer()
+    }
 
     function handleAnswer() {
       if (!madeChoice) {
@@ -43,6 +57,7 @@ function App() {
     
 
     function reset() {
+      click()
       setCorrectOptionColor("primary")
       setWrongOptionColor("primary")
       setMadeChoice(false)
@@ -77,10 +92,10 @@ function App() {
       {
 
         if (option == correctOption) {
-          return <Button key={option} sx={{bgcolor: `${correctOptionColor}`}}  variant="contained" onClick={() => handleAnswer()}>{option}</Button>
+          return <Button key={option} sx={{bgcolor: `${correctOptionColor}`}}  variant="contained" onClick={() => correctAnswer()}>{option}</Button>
         }
         else {
-          return <Button key={option} sx={{bgcolor: `${wrongOptionColor}`}} variant="contained" onClick={() => handleAnswer()}>{option}</Button>
+          return <Button key={option} sx={{bgcolor: `${wrongOptionColor}`}} variant="contained" onClick={() => failAnswer()}>{option}</Button>
          
         }
      
@@ -99,7 +114,33 @@ function App() {
       </Grid>
      
     );
+    const scenarioText = (
+      <Typography>
+      Scenario: <b>{scenario} </b> 
+    </Typography>
+    
+    )
 
+    var scenarioTextMeaning;
+    if (scenario === "Raise First In") {
+      scenarioTextMeaning = 
+        <p>
+        <b>Raise First In/RFI: </b> Raising first into the pot. Occurs when all players before you have folded and you decide to raise.
+        </p>
+    }
+    else if (scenario == "Facing 3bet") {
+      scenarioTextMeaning = 
+      <p>
+      <b>Facing 3bet: </b> When you raise (the "2bet") and another player raises into you (the "3bet") and action folds back to you.
+      </p>
+    }
+    else if (scenario == "Facing Raise First In") {
+      scenarioTextMeaning = 
+      <p>
+      <b>Facing Raise First In: </b> When a player before you raises and action folds to you.
+      </p>
+    }
+    
   return (
    
     <Container maxWidth="sm">
@@ -117,13 +158,9 @@ function App() {
       <Stack sx={{bgcolor:'secondary'}} padding={1} borderRadius="10px" margin={1}>
         {htmlParser.parse(rangeTable)}
       </Stack>
-
-      <Typography>
-        6 max 100BB eff.
-      </Typography>
-      <Typography>
-        Scenario: <b>{scenario} </b> 
-      </Typography>
+      <SimpleBackdrop text={"These charts assume a 6 max poker game with all players having at least 100 big blinds in their stack."} buttonText={"6 max 100BB eff."} icon={<HelpOutlineIcon/>}/>
+      <SimpleBackdrop text={scenarioTextMeaning} buttonText={scenarioText} icon={<HelpOutlineIcon/>}/>
+     
       <Typography variant="h5"><b>Dealt {hand} in {position}</b></Typography>
  
       <Stack spacing={1} direction="row" sx={{bgcolor:'dark', width:"100%"}} borderRadius="10px" padding={2} justifyContent={'center'}>

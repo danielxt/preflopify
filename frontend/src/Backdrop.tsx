@@ -17,7 +17,7 @@ export default function SimpleBackdrop({text, buttonText, icon}) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleOpen} startIcon={icon}> {buttonText}</Button>
+      <Button variant="text" onClick={handleOpen} endIcon={icon} color="white"> {buttonText}</Button>
 
       <Backdrop
         sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
