@@ -18,19 +18,31 @@ function App() {
     const [wrongOptionColor, setWrongOptionColor] = useState("primary")
     const [correctOptionColor, setCorrectOptionColor] = useState("primary")
 
+    const [madeChoice, setMadeChoice] = useState(false)
+
+
     function handleCorrect() {
-      setCorrectOptionColor("green")
-      console.log(correctOptionColor)
+      if (!madeChoice) {
+        setCorrectOptionColor("green")
+        setMadeChoice(true)
+      }
+      
       
     }
     
     function handleWrong() {
-      setWrongOptionColor("red")
+      if (!madeChoice) {
+       
+        setWrongOptionColor("red")
+        setMadeChoice(true)
+      }
+      
     }
 
     function reset() {
       setCorrectOptionColor("primary")
       setWrongOptionColor("primary")
+      setMadeChoice(false)
       fetchHand()
     }
     
