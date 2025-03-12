@@ -1,10 +1,14 @@
-import { useEffect, useState, createContext, useCallback } from "react";
+import { useEffect, useState} from "react";
 import './App.css'
 import { Parser } from "html-to-react";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import { Typography } from "@mui/material";
+import { Container } from "@mui/material";
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import Grid from '@mui/material/Grid2';
 
-
+import SimpleBackdrop from './Backdrop.tsx'
 
 
 function App() {
@@ -15,6 +19,7 @@ function App() {
     const htmlParser = Parser();
     const [blankRangeTable, setBlankRangeTable] = useState("")
     const [coloredRangeTable, setColoredRangeTable] = useState("")
+    const [scenario, setScenario] = useState("")
 
     const [wrongOptionColor, setWrongOptionColor] = useState("primary")
     const [correctOptionColor, setCorrectOptionColor] = useState("primary")
@@ -24,23 +29,17 @@ function App() {
     
 
 
-    function handleCorrect() {
+    function handleAnswer() {
       if (!madeChoice) {
-        setCorrectOptionColor("green")
+        setCorrectOptionColor("#81c784")
+        setWrongOptionColor("#e57373")
         setMadeChoice(true)
       }
       
       
     }
     
-    function handleWrong() {
-      if (!madeChoice) {
-       
-        setWrongOptionColor("red")
-        setMadeChoice(true)
-      }
-      
-    }
+    
 
     function reset() {
       setCorrectOptionColor("primary")
@@ -58,6 +57,7 @@ function App() {
       setCorrectOption(result.correctOption)
       setBlankRangeTable(result.blankRangeTable)
       setColoredRangeTable(result.coloredRangeTable)
+      setScenario(result.scenario)
     }
     useEffect(() => {
       fetchHand()
@@ -76,10 +76,10 @@ function App() {
       {
 
         if (option == correctOption) {
-          return <Button key={option} sx={{bgcolor: `${correctOptionColor}`}}  variant="contained" onClick={() => handleCorrect()}>{option}</Button>
+          return <Button key={option} sx={{bgcolor: `${correctOptionColor}`}}  variant="contained" onClick={() => handleAnswer()}>{option}</Button>
         }
         else {
-          return <Button key={option} sx={{bgcolor: `${wrongOptionColor}`}} variant="contained" onClick={() => handleWrong()}>{option}</Button>
+          return <Button key={option} sx={{bgcolor: `${wrongOptionColor}`}} variant="contained" onClick={() => handleAnswer()}>{option}</Button>
          
         }
      
@@ -96,23 +96,37 @@ function App() {
     )
 
   return (
-    <>
+   
+    <Container maxWidth="sm">
+      <Grid container padding={1} borderBottom={"1px solid grey"}>
+        <Grid size={4}>
+          <Typography variant="h4"><b>Preflopify</b></Typography>
+        </Grid>
+        <Grid size={8}>
+          <Typography align="right"><SimpleBackdrop/></Typography>
+        </Grid>
   
+      </Grid>
+
       
-      <div>
+      <Stack sx={{bgcolor:'secondary'}} padding={1} borderRadius="10px" margin={1}>
         {htmlParser.parse(rangeTable)}
-      </div>
+      </Stack>
+      <Typography>
+        {scenario}
+      </Typography>
+      <Typography variant="h5"><b>Dealt {hand} in {position}</b></Typography>
 
-      <b>Dealt {hand} in {position}</b>
-
-      <Stack spacing={1} direction="column">
+      <Stack spacing={1} direction="column" sx={{bgcolor:'dark'}} borderRadius="10px" padding={2}>
         {optionsList}
-        <Button variant="contained" onClick={() => reset()}>Reset</Button>
+        <Button variant="outlined" onClick={() => reset()}><RestartAltIcon/></Button>
       </Stack>
 
+    </Container>
+     
       
 
-    </>
+   
   )
 }
 

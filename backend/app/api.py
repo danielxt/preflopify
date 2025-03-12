@@ -27,6 +27,8 @@ app.add_middleware(
 @app.get("/dealHand")
 async def deal_hand() -> dict:
     chosenHand = random.choice(poker.hand.Range("XX").to_ascii().split())
+    
+    chosenScenario = random.choice(["Raise First In"])
 
     actionClass = random.choice(ALL_RFI_ACTIONS)
    
@@ -43,6 +45,7 @@ async def deal_hand() -> dict:
     return {"hand": chosenHand, 
             "position": chosenPosition, 
             "options" : options, 
+            "scenario" : chosenScenario,
             "correctOption" : correctOption, 
             "blankRangeTable": blankRangeTable,
             "coloredRangeTable" : coloredRangeTable}

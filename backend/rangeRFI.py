@@ -15,9 +15,18 @@ CUTOFF_RFI = ActionClass("Cutoff",
 BUTTON_RFI = ActionClass("Button",
                           {"Raise" : poker.hand.Range("A2o+ A2s+ K2s+ Q2s+ J6s+ T6s+ 96s+ 86s+ 85s+ K7o+ Q8o+ J8o+ T8o+ 97o+ 87o+ 76o+ 74s+ 64s+ 53s+ 43s+ 32s+ 22+").to_ascii().split()})
 
+SMALL_BLIND_RFI = ActionClass("Small Blind",
+                              {"Raise for Value" : poker.hand.Range("88-QQ ATo-AQo ATs-AKs KJs-KQs QJs").to_ascii().split(),
+                               "Raise as a Bluff" : poker.hand.Range("J2s-J4s").to_ascii().split(),
+                               "Limp" : poker.hand.Range("KK+ AKo A2o-A9o K4o-KTo Q6o-QJo J7o-JTo T7o-T9o 97o-98o A2s-A9s K2s-KTs Q2s-QTs J5s-JTs T6s-T9s 96s-98s 86s-87s 22-77").to_ascii().split(),
+                               
+                               
+                               })
 
 
-ALL_RFI_ACTIONS = [UTG_RFI, UTG1_RFI, CUTOFF_RFI, BUTTON_RFI]
+
+
+ALL_RFI_ACTIONS = [UTG_RFI, UTG1_RFI, CUTOFF_RFI, BUTTON_RFI, SMALL_BLIND_RFI]
 
 
 
