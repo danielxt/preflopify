@@ -46,7 +46,7 @@ async def deal_hand() -> dict:
     
     correctOption = actionClass.getCorrectAction(chosenHand)
     
-    blankRangeTable = colorer([], [], [], chosenHand)
+    blankRangeTable = colorer([], [], [], chosenHand, "", "", "")
     
     coloredRangeTable = actionClass.getColoredTable(chosenHand)
 

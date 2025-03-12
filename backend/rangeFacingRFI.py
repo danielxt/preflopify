@@ -65,7 +65,7 @@ BB_VS_CO_RFI = ActionClass("BB vs CO Raise First In",
                      })
 
 BB_VS_BTN_RFI = ActionClass("BB vs BTN Raise First In", 
-                      {"3-bet": "AA AKs AQs AJs ATs A6s A5s A4s AKo KKs KQs KJs KTs K9s AQo KQo QQ QJs QTs Q9s JJ JTs J9s J8s TT T9s T8s 99 98s 97s 88 87s 76s 65s 54s".split(),
+                      {"3-bet": "AA AKs AQs AJs ATs A6s A5s A4s AKo KK KQs KJs KTs K9s AQo KQo QQ QJs QTs Q9s JJ JTs J9s J8s TT T9s T8s 99 98s 97s 88 87s 76s 65s 54s".split(),
                        "Call" : "A9s A8s A7s A3s A2s K8s K7s K6s K5s K4s K3s K2s Q8s Q7s Q6s Q5s Q4s Q3s Q2s AJo KJo QJo J7s J6s J5s J4s J3s J2s ATo KTo QTo JTo T7s T6s T5s T4s T3s T2s A9o K9o Q9o J9o T9o 96s 95s 94s A8o K8o Q8o J8o T8o 98o 86s 85s 84s A7o K7o 87o 77 75s 74s 73s A6o K6o 76o 66 64s 63s 62s A5o 65o 55 53s 52s A4o 54o 44 43s 42s 33 32s 22".split()
                      })
 

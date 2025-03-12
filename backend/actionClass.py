@@ -22,12 +22,18 @@ class ActionClass:
         red = []
         green = []
         blue = []
+        redActionMeaning = ""
+        blueActionMeaning = ""
+        greenActionMeaning = ""
         for option in self.optionToRange.keys():
             if option in redActions: # need to extend for vs 3 bet / facing rfi
                 red = self.optionToRange[option]
+                redActionMeaning = option
             elif option in greenActions:
                 green = self.optionToRange[option]
+                greenActionMeaning = option
             elif option in blueActions: # need to extend
                 blue = self.optionToRange[option]
+                blueActionMeaning = option
                 
-        return colorer(red, green, blue, chosenCard)
+        return colorer(red, green, blue, chosenCard, redActionMeaning, blueActionMeaning, greenActionMeaning)

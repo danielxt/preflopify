@@ -9,6 +9,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import Grid from '@mui/material/Grid2';
 
 import SimpleBackdrop from './Backdrop.tsx'
+import InfoIcon from '@mui/icons-material/Info';
 
 
 function App() {
@@ -85,15 +86,18 @@ function App() {
      
        
       }
-    
-     
-        
-  
-       
-
-      
-
     )
+
+    const infoText = (
+      <Grid container>
+       <Typography variant="h4">
+        <b>What is Preflopify?</b>
+      </Typography>
+
+    
+      </Grid>
+     
+    );
 
   return (
    
@@ -103,7 +107,7 @@ function App() {
           <Typography variant="h4"><b>Preflopify</b></Typography>
         </Grid>
         <Grid size={8}>
-          <Typography align="right"><SimpleBackdrop/></Typography>
+          <Typography align="right"><SimpleBackdrop text={infoText} buttonText={"Info"} icon={<InfoIcon/>}/></Typography>
         </Grid>
   
       </Grid>
@@ -116,7 +120,7 @@ function App() {
         6 max 100BB eff.
       </Typography>
       <Typography>
-        Scenario: <b>{scenario}</b>
+        Scenario: <b>{scenario} </b> 
       </Typography>
       <Typography variant="h5"><b>Dealt {hand} in {position}</b></Typography>
 

@@ -2,10 +2,11 @@ import * as React from 'react';
 import Backdrop from '@mui/material/Backdrop';
 
 import Button from '@mui/material/Button';
-import InfoIcon from '@mui/icons-material/Info';
-import { Box } from '@mui/material';
 
-export default function SimpleBackdrop() {
+import { Box } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+
+export default function SimpleBackdrop({text, buttonText, icon}) {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -16,16 +17,16 @@ export default function SimpleBackdrop() {
 
   return (
     <div>
-      <Button variant="text" onClick={handleOpen}><InfoIcon/></Button>
+      <Button variant="text" onClick={handleOpen} startIcon={icon}> {buttonText}</Button>
 
       <Backdrop
         sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
         open={open}
         onClick={handleClose}
       >
-        <Box>
-          Some info!
-        </Box>
+        <Grid container bgcolor={"white"} sx={{color:"black"}} borderRadius={"5px"} padding={1}>
+          {text}
+        </Grid>
       </Backdrop>
     </div>
   );
