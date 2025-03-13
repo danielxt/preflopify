@@ -41,6 +41,16 @@ function App() {
       handleAnswer();
     }
 
+    var endpoint = ""
+    if (import.meta.env.MODE == "development") {
+      endpoint = import.meta.env.VITE_DEV_API_ENDPOINT
+      
+    }
+    else {
+      endpoint = import.meta.env.VITE_PROD_API_ENDPOINT
+    }
+
+
     function failAnswer() {
       fail()
       handleAnswer()
@@ -66,7 +76,7 @@ function App() {
     }
     
     const fetchHand = async () => {
-      const response = await fetch("http://localhost:8000/dealHand")
+      const response = await fetch(endpoint)
       const result = await response.json()
       setHand(result.hand)
       setPosition(result.position)
