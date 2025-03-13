@@ -15,8 +15,10 @@ import useSound from 'use-sound';
 import successSound from './assets/success.mp3'
 import failSound from './assets/fail.mp3'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import SettingsIcon from '@mui/icons-material/Settings';
 
-
+import ScrollDialog from './Dialog.tsx'
+import pokerPositions from './assets/pokerPositions.png'
 function App() {
     const [hand, setHand] = useState("")
     const [position, setPosition] = useState("")
@@ -54,8 +56,7 @@ function App() {
       
     }
     
-    
-
+  
     function reset() {
       click()
       setCorrectOptionColor("primary")
@@ -103,17 +104,7 @@ function App() {
       }
     )
 
-    const infoText = (
-      <Grid container>
-         
-       <Typography variant="h4">
-        <b>What is Preflopify?</b>
-      </Typography>
-
-    
-      </Grid>
-     
-    );
+   
     const scenarioText = (
       <Typography>
       Scenario: <b>{scenario} </b> 
@@ -140,7 +131,43 @@ function App() {
       <b>Facing Raise First In: </b> When a player before you raises and action folds to you.
       </p>
     }
-    
+
+    var positionTextMeaning = (
+          <>
+           <img src={pokerPositions} width="100%"/>
+           <Typography textAlign={"left"}>
+            In preflop (for a 6 max game), from first to play to last is:
+            <p>
+            1.<b> LJ / Lojack</b> (also known as UTG / Under the Gun)
+            </p>
+            <p>
+            2.<b> HJ / Hijack</b> (also known as UTG+1)
+            </p>
+            <p>
+            3.<b> CO / Cutoff</b>
+            </p>
+            <p>
+            4.<b> BTN / Button</b>
+            </p>
+            <p>
+            5.<b> SB / Small Blind</b>
+            </p>
+            <p>
+            6.<b> BB / Big Blind</b>
+            </p>
+           </Typography>
+          </>
+          
+
+     
+    )
+
+    var settingsText = (
+      <>
+      <p> Coming soon... </p>
+      </>
+      
+    )
   return (
    
     <Container maxWidth="sm">
@@ -148,24 +175,36 @@ function App() {
         <Grid size={4}>
           <Typography variant="h4"><b>Preflopify</b></Typography>
         </Grid>
+
         <Grid size={8}>
-          <Typography align="right"><SimpleBackdrop text={infoText} buttonText={"Info"} icon={<InfoIcon/>}/></Typography>
+        <Typography align="right"><SimpleBackdrop text={settingsText} buttonText={"Settings"}icon={<SettingsIcon/>}/></Typography>
         </Grid>
+   
   
       </Grid>
 
-      
-      <Stack sx={{bgcolor:'secondary'}} padding={1} borderRadius="10px" margin={1}>
+
+      <Typography align="center" padding={1}><ScrollDialog/></Typography>
+  
+      <Stack sx={{bgcolor:'secondary'}} padding={1} borderRadius="10px" margin={1} spacing={2}>
         {htmlParser.parse(rangeTable)}
+        <SimpleBackdrop text={"These charts assume a 6 max poker game with all players having at least 100 big blinds in their stack."} buttonText={"6 max 100BB eff."} icon={<HelpOutlineIcon/>}/>
+        
+        <Stack direction="row" spacing={2} justifyContent={"center"}>
+        <SimpleBackdrop text={scenarioTextMeaning} buttonText={scenarioText} icon={<HelpOutlineIcon/>}/>
+        <SimpleBackdrop text={positionTextMeaning} buttonText={"Position"} icon={<HelpOutlineIcon/>}/>
+        </Stack>
+        
       </Stack>
-      <SimpleBackdrop text={"These charts assume a 6 max poker game with all players having at least 100 big blinds in their stack."} buttonText={"6 max 100BB eff."} icon={<HelpOutlineIcon/>}/>
-      <SimpleBackdrop text={scenarioTextMeaning} buttonText={scenarioText} icon={<HelpOutlineIcon/>}/>
-     
+
+  
+
       <Typography variant="h5"><b>Dealt {hand} in {position}</b></Typography>
  
       <Stack spacing={1} direction="row" sx={{bgcolor:'dark', width:"100%"}} borderRadius="10px" padding={2} justifyContent={'center'}>
         {optionsList}
         <Button variant="outlined" onClick={() => reset()}><RestartAltIcon/></Button>
+      
       </Stack>
       
     
