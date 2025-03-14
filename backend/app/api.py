@@ -19,7 +19,8 @@ SCENARIOS = {
 
 origins = [
     "http://localhost:5173",
-    "localhost:5173"
+    "localhost:5173",
+    "https://main.d2ubsh4n62h2f3.amplifyapp.com/"
 ]
 
 
