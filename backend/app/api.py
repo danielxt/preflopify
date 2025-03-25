@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 import poker
 import random
 import rangeRFI
@@ -17,16 +17,15 @@ SCENARIOS = {
     "Facing Raise First In" : ALL_FACING_RFI_ACTIONS
 }
 
-origins = [
-    "http://localhost:5173",
-    "localhost:5173",
-    "https://main.d2ubsh4n62h2f3.amplifyapp.com/"
-]
+# origins = [
+#     "http://127.0.0.1:5173/",
+#     "https://main.d2ubsh4n62h2f3.amplifyapp.com/"
+# ]
 
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
